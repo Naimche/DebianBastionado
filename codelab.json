@@ -1,0 +1,26 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2023-10-26T17:59:19+02:00",
+  "id": "naim-bastionado-bios",
+  "duration": 10,
+  "title": "Bastionado de un Sistema Debian",
+  "summary": "Protege tu sistema operativo, tu bios.",
+  "source": "codelab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "bastionado",
+    "debian",
+    "linux"
+  ],
+  "tags": [
+    "debian"
+  ],
+  "feedback": "Un enlace en el que los usuarios puedan darte feedback (quizás creando un issue en un repositorio de git)",
+  "url": "naim-bastionado-bios"
+}

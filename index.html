@@ -1,0 +1,104 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Bastionado de un Sistema Debian</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="naim-bastionado-bios"
+                  title="Bastionado de un Sistema Debian"
+                  environment="web"
+                  feedback-link="Un enlace en el que los usuarios puedan darte feedback (quizás creando un issue en un repositorio de git)">
+    
+      <google-codelab-step label="Introducción" duration="1">
+        <p>En este codelab, exploraremos el proceso de bastionado de un sistema operativo Debian. El bastionado es una práctica esencial en la administración de sistemas que tiene como objetivo principal fortalecer la seguridad y proteger el sistema contra amenazas cibernéticas.</p>
+<p>Debian es una distribución de Linux muy utilizada en entornos empresariales y de servidores, lo que la convierte en un objetivo atractivo para potenciales atacantes. Para mantener nuestros sistemas Debian seguros, es fundamental implementar medidas de seguridad adecuadas.</p>
+<p>A lo largo de este codelab, aprenderemos las mejores prácticas para asegurar un sistema Debian. Esto incluye configurar cortafuegos, gestionar usuarios y privilegios, mantener el sistema actualizado con las últimas actualizaciones, y establecer políticas sólidas de seguridad. Al aplicar estas medidas, podemos garantizar la confidencialidad, integridad y disponibilidad de nuestros datos, al tiempo que minimizamos el riesgo de compromisos de seguridad.</p>
+<p>¡Comencemos nuestro viaje hacia un sistema Debian más seguro!</p>
+<p class="image-container"><img alt="Bastionado Debian" src="img\\d1b5d06c35e1a1a1.jpeg"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Paso 1: Ocultación del Menú de Arranque en GRUB2" duration="2">
+        <ul>
+<li><em>Objetivo</em>: Aprender a ocultar el menú de arranque en GRUB2 para evitar que usuarios no autorizados modifiquen la secuencia de arranque.</li>
+<li><em>Instrucciones</em>:</li>
+</ul>
+<ol type="1">
+<li>Abre una terminal en tu sistema Debian.</li>
+<li>Ejecuta el siguiente comando para editar el archivo de configuración de GRUB2: <code>sudo nano /etc/default/grub</code></li>
+<li>Busca la línea que dice GRUB_TIMEOUT=5 y cámbiala a GRUB_TIMEOUT=0. Esto hará que el menú de arranque se oculte.</li>
+<li>Guarda los cambios y cierra el editor de texto. <img alt="Bastionado Debian arranque" src="img\\f9da645491dd48f7.png"></li>
+<li>Ejecuta el siguiente comando para aplicar los cambios: <code>sudo update-grub</code></li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Paso 2: Configuración de una Contraseña de Arranque en GRUB2" duration="4">
+        <ul>
+<li><em>Objetivo</em>: Aprender a configurar una contraseña en GRUB2 para proteger la configuración de arranque.</li>
+<li><em>Instrucciones</em>:</li>
+</ul>
+<ol type="1">
+<li>Ejecuta el siguiente comando para cifrar la contraseña que se utilizará en GRUB2: <code>sudo grub-mkpasswd-pbkdf2</code></li>
+<li>Ingresa y confirma la contraseña que deseas utilizar.</li>
+<li>El comando generará una cadena cifrada. Copia esta cadena. <img alt="Bastionado Debian arranque" src="img\\1b5d6a31592ae2d8.png"></li>
+<li>Abre una terminal y ejecuta el siguiente comando para editar el archivo de configuración personalizado de GRUB2: <code>sudo nano /etc/grub.d/40_custom</code></li>
+<li>Agrega las siguientes líneas al final del archivo, reemplazando CONTRASEÑA_CIFRADA con la cadena cifrada generada en el paso 3:</li>
+</ol>
+<pre><code>set superusers=&#34;root&#34;
+password root CONTRASEÑA_CIFRADA
+</code></pre>
+<p class="image-container"><img alt="Bastionado Debian arranque" src="img\\69730569b47094f6.png"></p>
+<ol type="1" start="6">
+<li>Guarda los cambios y cierra el editor de texto.</li>
+<li>Ejecuta el siguiente comando para aplicar los cambios: <code>sudo update-grub</code></li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Paso 3: Creación de una Copia de Seguridad de la Configuración de Arranque" duration="3">
+        <ul>
+<li><em>Objetivo</em>: Aprender a crear una copia de seguridad de la configuración de arranque de GRUB2.</li>
+<li><em>Instrucciones</em>:</li>
+</ul>
+<ol type="1">
+<li>Abre una terminal en tu sistema Debian.</li>
+<li>Ejecuta el siguiente comando para crear una copia de seguridad de la configuración de GRUB2: <code>sudo cp /etc/default/grub /etc/default/grub.bak</code></li>
+<li>Ahora tienes una copia de seguridad de la configuración original en caso de que necesites restaurarla en el futuro.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
